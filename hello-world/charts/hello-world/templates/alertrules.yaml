@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  creationTimestamp: null
+  labels:
+    role: hln-rules
+    {{- include "hello-world.labels" . | nindent 4 }}
+  name: {{ include "hello-world.fullname" . }}
+spec:
+  groups:
+  - name: h8r.io/rules
+    rules:
+    - alert: remixSerivceAlert
+      expr: "remix_error_500_count_total > 0"
